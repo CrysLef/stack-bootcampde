@@ -1,7 +1,13 @@
+import os
 from sqlalchemy import create_engine, Column, Integer, String, Float, Text
 from sqlalchemy.orm import sessionmaker, declarative_base
+from dotenv import load_dotenv
+
+load_dotenv()
 
 Base = declarative_base()
+
+DB_STRING = os.environ['DB_STRING']
 
 class Coins(Base):
   __tablename__ = 'tb_coins'
@@ -21,7 +27,7 @@ class Coins(Base):
 
 
   def start():
-    db_string = 'postgresql://postgres:~up\oQ{m[40,e39@server01.cdgr5jcll4ib.us-east-1.rds.amazonaws.com/coins'
+    db_string = DB_STRING
     engine = create_engine(db_string)
     Session = sessionmaker(bind=engine)
     session = Session()
